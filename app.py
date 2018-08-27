@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 def home():
 
     # Find data
-    mars_data = mongo.db.collection.find()
+    mars_data = mongo.db.collection.find().limit(1)
 
     # return template and data
     return render_template("index.html", mars_data = mars_data)
@@ -29,7 +29,7 @@ def scrape():
     mars_data = scrape_mars.scrape()
 
     # Insert forecast into database
-    mongo.db.collection.insert_one(mars_data)
+    mongo.db.collection.update({},mars_data)
 
     # Redirect back to home page
     return redirect("/", code=302)

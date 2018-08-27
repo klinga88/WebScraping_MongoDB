@@ -28,7 +28,7 @@ def scrape():
     response = {}   
     
     executable_path = {'executable_path': os.path.join("C:/","Users","kling","UNCC Data Analytics","chromedriver.exe")}
-    browser = Browser('chrome', **executable_path, headless=False)
+    
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
     options.add_argument("--test-type") 
@@ -43,10 +43,9 @@ def scrape():
     news_title = news_title.strip('\n')
     #Get all paragraphs from article, strip tags and add them together into one block of text
     news_p = soup.find_all("p")
-    news_p = news_p[:-4]
-    paragraph=""
-    for i in range(len(news_p)):
-        paragraph = paragraph + news_p[i].get_text(' ', strip=True)
+    paragraph= news_p[1]
+    
+    response['title'] = news_title
     response['paragraph'] = paragraph
 
     #get featured image
@@ -59,7 +58,7 @@ def scrape():
         image_url = image.get_attribute('src')
         print(image_url)
 
-    respone['featured_img'] = image_url
+    response['featured_img'] = image_url
     # img=requests.get(image_url)#fetch image
     # with open('featured_image.jpg','wb') as writer:#open for writing in binary mode
     #     writer.write(img.content)#write the image
@@ -72,6 +71,6 @@ def scrape():
 
     #Get Mars facts
     facts = pd.read_html(facts_url)[0]
-    response['facts'] = facts
+    response['facts'] = facts.to_html()
 
     return(response)
