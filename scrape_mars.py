@@ -35,6 +35,7 @@ def scrape():
     browser = Browser('chrome', **executable_path, headless=False)
     #retrieve text news about mars
     browser.visit(nasa_url)
+    time.sleep(5)
     #get first article and follow link
     article_link = browser.find_link_by_partial_href('/news/')[0].click()
     html = browser.html

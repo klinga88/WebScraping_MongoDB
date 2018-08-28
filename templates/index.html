@@ -13,8 +13,8 @@
 
     <div class="container">
         <div class="jumbotron">
-            <h1>Mission to Mars</h1>
-            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+            <h1 style="text-align:center;">Mission to Mars</h1>
+            <p><div class="text-center"><a class="btn btn-primary btn-lg" href="/scrape" role="button" style="text-align:center;">Scrape New Data</a></div></p>
 
         </div>
 
@@ -24,15 +24,19 @@
                         <h3>{{ data.title }}</h3>
                         <p>{{ data.paragraph }}</p>>
                     </div>
-                    <div class="col-lg-4">
-                            <div class="card" style="width: 20rem;">
-                              <img src= {{ data.featured_image }}>
 
-                            </div>
+                    <div class="col-lg-6"> 
+                    <h2>Mars Facts</h2>    
+                    {{ data.facts|safe }}
                     </div>
-                    <div class="col-lg-4">
-                        {{ data.facts }}
+
+                    <div class="col-lg-6">  
+                        <h2>Featured Image</h2>  
+                        <img src= "{{ data.featured_img|safe }}" style="width:300px;height:300px;">    
                     </div>
+                    
+                    
+                    
             {% endfor %}
 
     </div>
